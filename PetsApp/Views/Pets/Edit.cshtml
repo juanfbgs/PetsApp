@@ -1,0 +1,67 @@
+﻿@model PetsApp.Dtos.PetCreateDto
+
+@{
+    ViewData["Title"] = "Edit Pet Details";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-light border-warning shadow-lg">
+                <div class="card-header border-warning bg-black bg-opacity-25 py-3">
+                    <h4 class="mb-0 text-warning"><i class="bi bi-pencil-square me-2"></i>Update @Model.Name</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        
+                        @if (ViewBag.ExistingImageUrl != null)
+                        {
+                            <div class="text-center mb-4">
+                                <p class="small text-muted mb-2">Current Photo</p>
+                                <img src="@ViewBag.ExistingImageUrl" class="rounded border border-secondary" style="width: 120px; height: 120px; object-fit: cover;" />
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label text-info fw-bold"></label>
+                            <input asp-for="Name" class="form-control bg-dark text-white border-secondary" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label asp-for="Breed" class="form-label text-info fw-bold"></label>
+                                <input asp-for="Breed" class="form-control bg-dark text-white border-secondary" />
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Age" class="form-label text-info fw-bold"></label>
+                                <input asp-for="Age" class="form-control bg-dark text-white border-secondary" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label text-info fw-bold"></label>
+                            <textarea asp-for="Description" class="form-control bg-dark text-white border-secondary" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="ImageFile" class="form-label text-info fw-bold">Change Photo</label>
+                            <input asp-for="ImageFile" type="file" class="form-control bg-dark text-white border-secondary" accept="image/*" />
+                            <small class="text-warning fst-italic">Uploading a new file will delete the previous one.</small>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-warning text-dark fw-bold">Update Record</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PetsApp.Models.Pet>
+
+@{
+    ViewData["Title"] = "Our Pets";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-light">Pet Gallery</h1>
+        <a asp-action="Create" class="btn btn-primary">Add New Pet</a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model) {
+            <div class="col">
+                <div class="card h-100 bg-dark border-secondary text-light shadow">
+                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/placeholder.jpg" : item.ImageUrl)" 
+                         class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title text-info">@item.Name</h5>
+                        <p class="card-text text-truncate">@item.Description</p>
+                        <span class="badge bg-secondary mb-2">@item.Breed</span>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent d-flex justify-content-between">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">View</a>
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning me-2">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger ">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
